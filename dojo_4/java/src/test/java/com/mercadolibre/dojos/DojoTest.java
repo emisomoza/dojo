@@ -1,5 +1,6 @@
 package com.mercadolibre.dojos;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -43,12 +44,34 @@ public class DojoTest {
 		assertFalse( pacman.hasDuplicateWeight(initialWeight) );
 	}
 
-	@Test(expected = PacmanDeadException.class)
-	public void test_pacman_should_die_whether_it_bumps_into_phantom() throws PacmanDeadException {
+	@Test
+	public void test_pacman_should_die_whether_it_bumps_into_phantom() {
 		Pacman pacman = new Pacman();
 		Blinky blinky = new Blinky();
 
 		pacman.bumps(blinky);
+
+		assertFalse(pacman.isAlive());
+	}
+
+	@Test
+	@Ignore
+	public void test_pacman_should_weaken_phantom_whether_it_eats_pellet() {
+
+		// ...
+		// Code here!
+		// ...
+
+	}
+
+	@Test
+	@Ignore
+	public void test_pacman_should_kill_weakened_phantom_when_hit_it() {
+
+		// ...
+		// Code here!
+		// ...
+
 	}
 
 }

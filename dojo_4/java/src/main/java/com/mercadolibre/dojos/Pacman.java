@@ -5,9 +5,11 @@ package com.mercadolibre.dojos;
  */
 public class Pacman {
     Weight weight;
+    PackmanState state;
 
     Pacman(){
         this.weight = new Weight();
+        this.state = PackmanState.ALIVE;
     }
 
     public Weight getWeight(){
@@ -26,11 +28,15 @@ public class Pacman {
         return this.weight.isDoubleThan(weight);
     }
 
-    public void bumps(Blinky blinky) throws PacmanDeadException {
+    public void bumps(Blinky blinky) {
         blinky.bumps(this);
     }
 
-    public void die() throws PacmanDeadException {
-        throw new PacmanDeadException();
+    public void die() {
+        this.state = PackmanState.DEAD;
+    }
+
+    public boolean isAlive() {
+        return this.state == PackmanState.ALIVE;
     }
 }
