@@ -1,124 +1,54 @@
 package com.mercadolibre.dojos;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.equalTo;
-
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the dojo.
  */
 public class DojoTest {
-	
-	private SpreadSheet sheet;
-	
-	@Before
-	public void setup() {
-		this.sheet = new SpreadSheet();
-	}
+	//"should weaken phantom whether it eats a pellet", () => {
 	
 	@Test
-	@Ignore
-	public void testSpreadSheet_withNumericValues_shouldPopulateTwoCells() {
+	public void testPacman_ShouldGetFatWhetherItEatsBiscuits() {
 		
-		// ... 
-        // Code here!
-        // ... 
-		
-		Object a1 = this.sheet.get("a1");
-		Object a2 = this.sheet.get("a2");
-		
-		assertThat(a1, is(notNullValue()));
-		assertThat((Integer) a1, is( equalTo(1) ));
-		
-		assertThat(a2, is(notNullValue()));
-		assertThat((Integer) a2, is( equalTo(2) ));
-	}
-	
-	@Test
-	@Ignore
-	public void testSpreadSheet_withALabelAndANumericValue_shouldPopulateTwoCells() {
-		
-		// ... 
-        // Code here!
-        // ... 
-		
-		Object a1 = this.sheet.get("a1");
-		Object a2 = this.sheet.get("a2");
-		
-		assertThat(a1, is(notNullValue()));
-		assertThat((Integer) a1, is( equalTo(1) ));
-		
-		assertThat(a2, is(notNullValue()));
-		assertThat((String) a2, is( equalTo("Valor:") ));
-	}
-	
-	@Test
-	@Ignore
-	public void testSpreadSheet_withAReferenceToAnotherCell_shouldReturnTheValueOfTheReferencedCell() {
-		
-		// ... 
-        // Code here!
-        // ... 
-		
-		Object a1 = this.sheet.get("a1");
-		Object a2 = this.sheet.get("a2");
-		
-		assertThat(a1, is(notNullValue()));
-		assertThat((Integer) a1, is( equalTo(1) ));
-		
-		assertThat(a2, is(notNullValue()));
-		assertThat((Integer) a2, is( equalTo(1) ));
-	}
-	
-	@Test
-	@Ignore
-	public void testSpreadSheet_withASummaryFunction_shouldReturnTheResultOfTheSummary() {
-		
-		// ... 
-        // Code here!
-        // ... 
+		Biscuit biscuit = new Biscuit();
+		Pacman pacman = new Pacman();
+		Weight initialWeight = pacman.getWeight();
 
-		this.sheet.set("a1", 1);
-		this.sheet.set("a2", 2);
+		pacman.eat(biscuit);
 		
-		Object a3 = this.sheet.get("a3");
-		
-		assertThat(a3, is(notNullValue()));
-		assertThat((Integer) a3, is( equalTo(3) ));
-		
-		this.sheet.set("a2", 9);
-		
-		a3 = this.sheet.get("a3");
-		
-		assertThat(a3, is(notNullValue()));
-		assertThat((Integer) a3, is( equalTo(10) ));
+		assertTrue( pacman.isFatterThan(initialWeight) );
 	}
-	
+
 	@Test
-	@Ignore
-	public void testSpreadSheet_withASummaryFunctionAndABrokenRange_shouldReturnTheResultOfTheSummary() {
-		
-		// ... 
-        // Code here!
-        // ... 
-		
-		this.sheet.set("a1", 1);
-		this.sheet.set("a2", 2);
-		
-		Object a3 = this.sheet.get("a3");
-		
-		assertThat(a3, is(notNullValue()));
-		assertThat((Integer) a3, is( equalTo(3) ));
-		
-		this.sheet.set("a2", 9);
-		
-		assertThat(a3, is(notNullValue()));
-		assertThat((Integer) a3, is( equalTo(10) ));
+	public void testPacman_ShouldDuplicateWeightWhenItEatsCherry() {
+
+		Cherry cherry = new Cherry();
+		Pacman pacman = new Pacman();
+		Weight initialWeight = pacman.getWeight();
+
+		pacman.eat(cherry);
+
+		assertTrue( pacman.hasDuplicateWeight(initialWeight) );
 	}
-	
+
+	@Test
+	public void testPacman_PacmanShouldNotDuplicateWeight() {
+		Pacman pacman = new Pacman();
+		Weight initialWeight = pacman.getWeight();
+
+		assertFalse( pacman.hasDuplicateWeight(initialWeight) );
+	}
+
+	@Test(expected = PacmanDeadException.class)
+	public void test_pacman_should_die_whether_it_bumps_into_phantom() throws PacmanDeadException {
+		Pacman pacman = new Pacman();
+		Blinky blinky = new Blinky();
+
+		pacman.bumps(blinky);
+	}
+
 }
