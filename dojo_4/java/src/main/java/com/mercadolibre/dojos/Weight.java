@@ -30,8 +30,8 @@ public class Weight implements Cloneable{
         this.quantity = quantity;
     }
 
-    public Weight add(Integer quantity){
-        return new Weight(this.quantity + quantity);
+    public void add(Integer quantity){
+        this.quantity += quantity;
     }
 
     @Override

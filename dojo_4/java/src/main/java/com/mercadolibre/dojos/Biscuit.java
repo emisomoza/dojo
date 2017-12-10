@@ -7,7 +7,8 @@ public class Biscuit implements Food{
     Weight weight;
 
     Biscuit(){
-        this.weight = new Weight();
+        Integer quantity = 10;
+        this.weight = new Weight(quantity);
     }
 
     public void incrementWeight(Weight originalWeight){

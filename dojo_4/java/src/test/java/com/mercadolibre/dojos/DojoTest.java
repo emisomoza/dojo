@@ -10,8 +10,7 @@ import static org.junit.Assert.assertTrue;
  * Tests for the dojo.
  */
 public class DojoTest {
-	//"should weaken phantom whether it eats a pellet", () => {
-	
+
 	@Test
 	public void testPacman_ShouldGetFatWhetherItEatsBiscuits() {
 		
@@ -55,13 +54,15 @@ public class DojoTest {
 	}
 
 	@Test
-	@Ignore
 	public void test_pacman_should_weaken_phantom_whether_it_eats_pellet() {
+		Pacman pacman = new Pacman();
+		Inky inky = new Inky();
+		Pellet pellet = new Pellet(inky);
 
-		// ...
-		// Code here!
-		// ...
+		pacman.eat(pellet);
+		pacman.bumps(inky);
 
+		assertTrue( pacman.isAlive() );
 	}
 
 	@Test

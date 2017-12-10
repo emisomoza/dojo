@@ -9,7 +9,7 @@ public class Pacman {
 
     Pacman(){
         this.weight = new Weight();
-        this.state = PackmanState.ALIVE;
+        this.state = new StateNormal();
     }
 
     public Weight getWeight(){
@@ -21,22 +21,22 @@ public class Pacman {
     }
 
     public boolean isFatterThan(Weight weight) {
-        return true;
+        return this.weight.quantity > weight.quantity;
     }
 
     public boolean hasDuplicateWeight(Weight weight){
         return this.weight.isDoubleThan(weight);
     }
 
-    public void bumps(Blinky blinky) {
-        blinky.bumps(this);
+    public void bumps(Phantom phantom) {
+        phantom.bumps(this);
     }
 
     public void die() {
-        this.state = PackmanState.DEAD;
+        this.state = new StateDead();
     }
 
     public boolean isAlive() {
-        return this.state == PackmanState.ALIVE;
+        return this.state.isAlive() ;
     }
 }
