@@ -1,5 +1,11 @@
 package com.mercadolibre.dojos;
 
+import com.mercadolibre.dojos.rules.AvailabilityLessOrEqualsThanTen;
+import com.mercadolibre.dojos.rules.DaysBiggerThanFifteen;
+import com.mercadolibre.dojos.rules.DaysLessOrEqualsThanNinty;
+
+import java.util.ArrayList;
+
 /**
  * Created by esomoza on 2/7/18.
  */
@@ -9,12 +15,14 @@ public class ThreeMonthsBeforeAndTwoWeeksAfterAndMoreThanTenPercentAvailabilityT
 
     ThreeMonthsBeforeAndTwoWeeksAfterAndMoreThanTenPercentAvailabilityTripCostRule(ApiAvailabilityService apiAvailabilityService){
         this.apiAvailabilityService = apiAvailabilityService;
+        init();
     }
 
-    @Override
-    protected Boolean apply(Integer daysBetweenTodayAndTripDate) {
-        Integer availability = apiAvailabilityService.getAvailability();
-        return daysBetweenTodayAndTripDate <= 90 && daysBetweenTodayAndTripDate > 15 && availability > 10;
+    public void init() {
+        conditions = new ArrayList<Condition>();
+        conditions.add(new AvailabilityLessOrEqualsThanTen(apiAvailabilityService));
+        conditions.add(new DaysBiggerThanFifteen());
+        conditions.add(new DaysLessOrEqualsThanNinty());
     }
 
     @Override

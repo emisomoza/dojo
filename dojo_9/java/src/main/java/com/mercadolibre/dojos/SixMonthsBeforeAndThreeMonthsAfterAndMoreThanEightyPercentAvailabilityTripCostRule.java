@@ -11,6 +11,8 @@ public class SixMonthsBeforeAndThreeMonthsAfterAndMoreThanEightyPercentAvailabil
         this.apiAvailabilityService = apiAvailabilityService;
     }
 
+
+
     @Override
     protected Boolean apply(Integer daysBetweenTodayAndTripDate) {
         Integer availability = apiAvailabilityService.getAvailability();
