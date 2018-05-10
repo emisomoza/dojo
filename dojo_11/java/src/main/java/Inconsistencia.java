@@ -1,12 +1,8 @@
-package steps;
-
 import payments.Boleto;
 import payments.Oxxo;
+import steps.*;
 
-public class Review  extends CheckoutStep implements CambiadorDeMedioDePago{
-    public SeleccionDeEnvio modificarEnvio() {
-        return new SeleccionDeEnvio(this);
-    }
+public class Inconsistencia implements CambiadorDeMedioDePago {
 
     @Override
     public SeleccionDeMedioDePago cambiarMedioDePago() {

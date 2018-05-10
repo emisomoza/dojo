@@ -1,4 +1,4 @@
 package shippings;
 
-public class Acuerdo {
+public class Acuerdo implements ShippingOption{
 }

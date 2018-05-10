@@ -5,17 +5,18 @@ import shippings.RetiroEnCorreo;
 import shippings.ShippingOption;
 
 public class SeleccionDeEnvio extends CheckoutStep{
+    private final CambiadorDeMedioDePago defaultNextStep;
 
-    public SeleccionDeEnvio(boolean editMode) {
-        setEditMode(editMode);
+    public SeleccionDeEnvio() {
+        this.defaultNextStep = new SeleccionDeMedioDePago();
     }
 
-    public CheckoutStep envioADomicilio() {
-        if (!CheckoutStep.isEditMode()) {
-            return new SeleccionDeMedioDePago();
-        } else {
-            return new Review();
-        }
+    public SeleccionDeEnvio(Review review) {
+        this.defaultNextStep = review;
+    }
+
+    public CambiadorDeMedioDePago envioADomicilio() {
+        return this.defaultNextStep;
     }
 
     public CheckoutStep retiroEnCorreo() {
