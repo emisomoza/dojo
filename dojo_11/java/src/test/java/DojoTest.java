@@ -84,11 +84,12 @@ public class DojoTest {
 
         SeleccionDeMedioDePago seleccionDeMedioDePago = (SeleccionDeMedioDePago) mapaDeSucursales.seleccionSucursalMasCercana();
 
-        Review review = seleccionDeMedioDePago.seleccionar(new Oxxo(0, 1000));
+        Oxxo oxxo = new Oxxo(0,1000);
+        Review review = seleccionDeMedioDePago.seleccionar(oxxo);
 
         SeleccionDeEnvio modificarEnvio = review.modificarEnvio();
 
-        Inconsistencia inconsistencia = (Inconsistencia) modificarEnvio.envio(new EnvioADomicilio(1300));
+        Inconsistencia inconsistencia = (Inconsistencia) modificarEnvio.envio(new EnvioADomicilio(1300), oxxo);
 
         SeleccionDeMedioDePago modificarMedioDePago = inconsistencia.cambiarMedioDePago();
 
@@ -106,11 +107,12 @@ public class DojoTest {
 
         SeleccionDeMedioDePago seleccionDeMedioDePago = (SeleccionDeMedioDePago) mapaDeSucursales.seleccionSucursalMasCercana();
 
-        Review review = seleccionDeMedioDePago.seleccionar(new Oxxo(0, 1000));
+        Oxxo oxxo = new Oxxo(0,1000);
+        Review review = seleccionDeMedioDePago.seleccionar(oxxo);
 
         SeleccionDeEnvio modificarEnvio = review.modificarEnvio();
 
-        CheckoutStep nextStep = (CheckoutStep) modificarEnvio.envio(new EnvioADomicilio(500));
+        CheckoutStep nextStep = (CheckoutStep) modificarEnvio.envio(new EnvioADomicilio(500), oxxo);
 
         // Zeplin: https://zpl.io/br1Km7L
         Assert.assertEquals(Review.class, nextStep.getClass());

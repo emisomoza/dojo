@@ -1,5 +1,6 @@
 package steps;
 
+import payments.Oxxo;
 import shippings.EnvioADomicilio;
 import shippings.RetiroEnCorreo;
 import shippings.ShippingOption;
@@ -19,8 +20,8 @@ public class SeleccionDeEnvio extends CheckoutStep{
         return this.defaultNextStep;
     }
 
-    public CambiadorDeMedioDePago envio(EnvioADomicilio envio) {
-        return new Inconsistencia();
+    public CambiadorDeMedioDePago envio(EnvioADomicilio envio, Oxxo oxxo) {
+        return ( CambiadorDeMedioDePago ) oxxo.pagar(envio, new Review(), new Inconsistencia());
     }
 
     public CheckoutStep retiroEnCorreo() {
