@@ -4,10 +4,7 @@ import org.junit.Test;
 import payments.Boleto;
 import payments.Oxxo;
 import shippings.EnvioADomicilio;
-import shippings.RetiroEnCorreo;
 import steps.*;
-
-import java.time.temporal.ChronoField;
 
 /**
  * Tests for the dojo.
@@ -34,7 +31,7 @@ public class DojoTest {
         // Zeplin: https://zpl.io/25zKgWV
         SeleccionDeEnvio seleccionDeEnvio = new SeleccionDeEnvio();
 
-        CambiadorDeMedioDePago nextStep = seleccionDeEnvio.envioADomicilio();
+        CambiadorDeMedioDePago nextStep = seleccionDeEnvio.envio();
 
         // Zeplin: https://zpl.io/br1Km7L
         Assert.assertEquals(SeleccionDeMedioDePago.class, nextStep.getClass());
@@ -47,7 +44,7 @@ public class DojoTest {
 
         SeleccionDeEnvio modificarMedioDeEnvio = review.modificarEnvio();
 
-        CambiadorDeMedioDePago nextStep = modificarMedioDeEnvio.envioADomicilio();
+        CambiadorDeMedioDePago nextStep = modificarMedioDeEnvio.envio();
 
         Assert.assertEquals(Review.class, nextStep.getClass());
     }
@@ -69,7 +66,7 @@ public class DojoTest {
     public void cuando_EligeEnvioADomicilioSeleccionDeMedioDePago_AltaNuevaTarjeta_nextStepIs_Review() {
         SeleccionDeEnvio seleccionDeEnvio = new SeleccionDeEnvio();
 
-        SeleccionDeMedioDePago seleccionDeMedioDePago = (SeleccionDeMedioDePago) seleccionDeEnvio.envioADomicilio();
+        SeleccionDeMedioDePago seleccionDeMedioDePago = (SeleccionDeMedioDePago) seleccionDeEnvio.envio();
 
         AltaDeTarjeta altaDeTarjeta = seleccionDeMedioDePago.altaDeTarjetaDeCredito();
 
@@ -91,11 +88,29 @@ public class DojoTest {
 
         SeleccionDeEnvio modificarEnvio = review.modificarEnvio();
 
-        Inconsistencia inconsistencia = (Inconsistencia) modificarEnvio.envioADomicilio();
+        Inconsistencia inconsistencia = (Inconsistencia) modificarEnvio.envio(new EnvioADomicilio(1300));
 
         SeleccionDeMedioDePago modificarMedioDePago = inconsistencia.cambiarMedioDePago();
 
         CheckoutStep nextStep = modificarMedioDePago.seleccionar(new Boleto(0, 1500));
+
+        // Zeplin: https://zpl.io/br1Km7L
+        Assert.assertEquals(Review.class, nextStep.getClass());
+    }
+
+    @Test
+    public void cuando_EligeEnvioASucursal_SeleccionDeMedioDePago_Review_ModificaPorEnvioADomicilio_nextStepIs_Review() {
+        SeleccionDeEnvio seleccionDeEnvio = new SeleccionDeEnvio();
+
+        MapaDeSucursales mapaDeSucursales = (MapaDeSucursales) seleccionDeEnvio.retiroEnCorreo();
+
+        SeleccionDeMedioDePago seleccionDeMedioDePago = (SeleccionDeMedioDePago) mapaDeSucursales.seleccionSucursalMasCercana();
+
+        Review review = seleccionDeMedioDePago.seleccionar(new Oxxo(0, 1000));
+
+        SeleccionDeEnvio modificarEnvio = review.modificarEnvio();
+
+        CheckoutStep nextStep = (CheckoutStep) modificarEnvio.envio(new EnvioADomicilio(500));
 
         // Zeplin: https://zpl.io/br1Km7L
         Assert.assertEquals(Review.class, nextStep.getClass());

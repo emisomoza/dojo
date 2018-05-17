@@ -15,8 +15,12 @@ public class SeleccionDeEnvio extends CheckoutStep{
         this.defaultNextStep = review;
     }
 
-    public CambiadorDeMedioDePago envioADomicilio() {
+    public CambiadorDeMedioDePago envio() {
         return this.defaultNextStep;
+    }
+
+    public CambiadorDeMedioDePago envio(EnvioADomicilio envio) {
+        return new Inconsistencia();
     }
 
     public CheckoutStep retiroEnCorreo() {

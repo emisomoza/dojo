@@ -1,8 +1,10 @@
+package steps;
+
 import payments.Boleto;
 import payments.Oxxo;
 import steps.*;
 
-public class Inconsistencia implements CambiadorDeMedioDePago {
+public class Inconsistencia extends CheckoutStep implements CambiadorDeMedioDePago {
 
     @Override
     public SeleccionDeMedioDePago cambiarMedioDePago() {
