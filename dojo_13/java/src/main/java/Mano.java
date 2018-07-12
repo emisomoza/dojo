@@ -1,10 +1,8 @@
-import java.util.ArrayList;
-
 public class Mano {
 
-    ArrayList<Carta> cartas;
+    Triada cartas;
 
-    Mano(ArrayList<Carta> cartas){
+    Mano(Triada cartas){
         this.cartas = cartas;
     }
 

@@ -37,21 +37,11 @@ public class DojoTest {
 
     @Test
     public void test_mano_con_32_de_tanto_gana_a_mano_con_28_de_tanto() {
-        SieteDeEspadas sieteDeEspadas = new SieteDeEspadas();
-        AnchoDeEspadas anchoDeEspadas = new AnchoDeEspadas();
-        CuatroDeCopas cuatroDeCopas = new CuatroDeCopas();
-        ArrayList<Carta> cartasJugador1 = new ArrayList<>();
-        cartasJugador1.add(sieteDeEspadas);
-        cartasJugador1.add(anchoDeEspadas);
-        cartasJugador1.add(cuatroDeCopas);
+	    //Triada con 28 de tanto
+        Triada cartasJugador1 = new Triada(new SieteDeEspadas(), new AnchoDeEspadas(), new CuatroDeCopas());
 
-        SieteDeOro sieteDeOro = new SieteDeOro();
-        CincoDeOro cincoDeOro = new CincoDeOro();
-        TresDeCopas tresDeCopas = new TresDeCopas();
-        ArrayList<Carta> cartasJugador2 = new ArrayList<>();
-        cartasJugador2.add(sieteDeOro);
-        cartasJugador2.add(cincoDeOro);
-        cartasJugador2.add(tresDeCopas);
+        //Triada con 32 de tanto
+        Triada cartasJugador2 = new Triada(new SieteDeOro(), new CincoDeOro(), new TresDeCopas());
 
         Mano manoJugador1 = new Mano(cartasJugador1);
         Mano manoJugador2 = new Mano(cartasJugador2);
@@ -61,28 +51,30 @@ public class DojoTest {
 
     @Test
     public void test_mano_con_28_de_tanto_pierde_con_mano_con_32_de_tanto() {
-	    //Mano con 28 de tanto
-        SieteDeEspadas sieteDeEspadas = new SieteDeEspadas();
-        AnchoDeEspadas anchoDeEspadas = new AnchoDeEspadas();
-        CuatroDeCopas cuatroDeCopas = new CuatroDeCopas();
-        ArrayList<Carta> cartasJugador1 = new ArrayList<>();
-        cartasJugador1.add(sieteDeEspadas);
-        cartasJugador1.add(anchoDeEspadas);
-        cartasJugador1.add(cuatroDeCopas);
+	    //Triada con 28 de tanto
+        Triada cartasJugador1 = new Triada(new SieteDeEspadas(), new AnchoDeEspadas(), new CuatroDeCopas());
 
-        //Mano con 32 de tanto
-        SieteDeOro sieteDeOro = new SieteDeOro();
-        CincoDeOro cincoDeOro = new CincoDeOro();
-        TresDeCopas tresDeCopas = new TresDeCopas();
-        ArrayList<Carta> cartasJugador2 = new ArrayList<>();
-        cartasJugador2.add(sieteDeOro);
-        cartasJugador2.add(cincoDeOro);
-        cartasJugador2.add(tresDeCopas);
+        //Triada con 32 de tanto
+        Triada cartasJugador2 = new Triada(new SieteDeOro(), new CincoDeOro(), new TresDeCopas());
 
         Mano manoJugador1 = new Mano(cartasJugador1);
         Mano manoJugador2 = new Mano(cartasJugador2);
 
         Assert.assertEquals(manoJugador2, manoJugador2.ganaEnEnvido(manoJugador1));
+    }
+
+    @Test
+    public void Dadas_dos_triadas_conformadas_por_espada1_espada7_copa5_y_espada1_espada10_copa5_ante_un_envido_debe_ganar_la_primer_triada_de_cartas(){
+        //Triada con 28 de tanto
+        Triada cartasJugador1 = new Triada(new SieteDeEspadas(), new AnchoDeEspadas(), new CincoDeCopas());
+
+        //Triada con 21 de tanto
+        Triada cartasJugador2 = new Triada(new SieteDeEspadas(), new AnchoDeEspadas(), new DiezDeEspadas());
+
+        Mano manoJugador1 = new Mano(cartasJugador1);
+        Mano manoJugador2 = new Mano(cartasJugador2);
+
+        Assert.assertEquals(manoJugador1, manoJugador2.ganaEnEnvido(manoJugador1));
     }
 }
 
